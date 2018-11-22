@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" ; charset="utf-8">
+	<title>RoadBuddy</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="./css/styleright.css">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.5.1/firebase.js"></script>
+	<script>
+		// Initialize Firebase
+		var config = {
+			apiKey: "AIzaSyAQqXC7P_OwwkkSfJscHLUIfro84Ipc0SI",
+			authDomain: "test-2e10e.firebaseapp.com",
+			databaseURL: "https://test-2e10e.firebaseio.com",
+			projectId: "test-2e10e",
+			storageBucket: "test-2e10e.appspot.com",
+			messagingSenderId: "872972741228"
+		};
+		firebase.initializeApp(config);
+	</script>
+	<script type="text/javascript" src="js/app.js"></script>
+	<style>
+		ul {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+			background-color: #333;
+		}
+
+		li {
+			float: left;
+		}
+
+		li a {
+			display: block;
+			color: white;
+			text-align: center;
+			padding: 14px 16px;
+			text-decoration: none;
+		}
+
+		li a:hover:not(.active) {
+			background-color: #111;
+		}
+
+		.active {
+			background-color: #4CAF50;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container" ; style="margin-top:10px;text-align: center;vertical-align: middle">
+		<p>Road Buddy Service</p>
+	</div>
+	<ul>
+		<li><a class="active" href="./index.html">Home</a></li>
+		<li><a href="./process.html">Process</a></li>
+		<li><a href="./finish.html">Finish</a></li>
+		<!-- <li><a href="#about">About</a></li> -->
+	</ul>
+	<p></p>
+	<div class="container">
+		<div class="row">
+			<div class="col-md">
+				<div class="panel-group" id="test">
+					<div class="panel panel-primary" id="test">
+						<div class="panel-heading">
+							<h4>Road Buddy</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			var database = firebase.database();
+			// database.ref("places").once('value', function (snapshot) {
+			// 	if (snapshot.exists()) {
+			// 		var content = '';
+			// 		var i = 0;
+			// 		snapshot.forEach(function (data) {
+			// 			var val = data.val();
+			// 			var key = Object.keys(snapshot.val())[i];
+			// 			content += '<div class="panel panel-primary">';
+			// 			content += '<div class="panel-body">';
+			// 			content += '<td>' + (i + 1) + '). Topic : ' + val.topic + '</td>';
+			// 			content += '</div>';
+			// 			content += '<div class="panel-body" id="someId' + i + '">' + getAddress(val.latitude, val.longitude, "someId" + i).then(console.log).catch(console.error) + '</div>';
+			// 			// content += val.latitude;
+			// 			// content += val.longitude;
+			// 			content += '<div class="panel-body" id="someId">' + '<td> Description : ' + val.description + '</td>' + '</div>';
+			// 			content += '<div class="panel-footer">';
+			// 			content += '<td> <button id="btnDel" class="btn btn-danger" onclick="delOnClick(\'/places/' + key + '\')">DELETE </button></td>';
+			// 			content += '</div>';
+			// 			content += '</div>';
+			// 			i++;
+			// 		});
+			// 		$('#test').append(content);
+			// 	}
+			// });
+			database.ref("Report").once('value', function (snapshot) {
+				if (snapshot.exists()) {
+					var content = '';
+					var i = 0;
+					snapshot.forEach(function (data) {
+						var key = Object.keys(snapshot.val())[i];
+						content += '<div class="panel panel-primary">';
+						content += '<div class="panel-body">';
+						content += '<td>' + (i + 1) + '). Topic : ' + (data.val().topic) + '</td>';
+						content += '</div>';
+						// content += '<div class="panel-body" id="someId'+i+'">'+getAddress(val.latitude,val.longitude,i).then(console.log).catch(console.error) +'</div>';
+						content += '<div class="panel-body" id="ReportID' + i + '">' + getAddress(data.val().latitude, data.val().longitude, "ReportID" + i).then(console.log).catch(console.error) + '</div>';
+						content += '<div class="panel-body">' + '<td> Description : ' + (data.val().description) + '</td>' + '</div>';
+						content += '<div class="panel-body">' + new Date(data.val().date) + '</div>';
+						content += '<div class="panel-body">';
+						if (data.val().accident == true) {
+							content += '<td> <button id="test" class="btn" onclick="location.href=\'accident.html\'">Accident </button></td>';
+						}
+						if (data.val().roadProblem == true) {
+							content += '<td> <button id="test" class="btn" onclick="location.href=\'road_problem.html\'">Road Problem </button></td>';
+						}
+						content += '</div>';
+						// content += data.val().latitude;
+						// content += data.val().longitude;
+						content += '<div class="panel-footer">';
+						content += '<td> <button id="btnDel" class="btn btn-danger" onclick="delOnClick(\'/Report/' + key + '\')">Delete</button></td>';
+						content += '<td> <button id="btnAdd" type="button" class="btn btn-primary dataPanel" onclick="addOnClick(\'' + key + '\')">Add to Process</button></td>';
+						content += '</div>';
+						content += '</div>';
+						i++;
+					});
+					$('#test').append(content);
+				}
+			});
+		</script>
+</body>
+
+</html>
