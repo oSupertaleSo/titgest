@@ -63,11 +63,11 @@
 		<li><a href="./finish.html">Finish</a></li>
 		<!-- <li><a href="#about">About</a></li> -->
 	</ul>
-	<p></p>
-	<div class="container">
+	<!-- <p></p> -->
+	<!-- <div class="container-fluid">
 		<div class="row">
 			<div class="col-md">
-				<div class="panel-group" id="test">
+				<div class="panel-group" id="">
 					<div class="panel panel-primary" id="test">
 						<div class="panel-heading">
 							<h4>Road Buddy</h4>
@@ -76,67 +76,162 @@
 				</div>
 			</div>
 		</div>
-		<script>
-			var database = firebase.database();
-			// database.ref("places").once('value', function (snapshot) {
-			// 	if (snapshot.exists()) {
-			// 		var content = '';
-			// 		var i = 0;
-			// 		snapshot.forEach(function (data) {
-			// 			var val = data.val();
-			// 			var key = Object.keys(snapshot.val())[i];
-			// 			content += '<div class="panel panel-primary">';
-			// 			content += '<div class="panel-body">';
-			// 			content += '<td>' + (i + 1) + '). Topic : ' + val.topic + '</td>';
-			// 			content += '</div>';
-			// 			content += '<div class="panel-body" id="someId' + i + '">' + getAddress(val.latitude, val.longitude, "someId" + i).then(console.log).catch(console.error) + '</div>';
-			// 			// content += val.latitude;
-			// 			// content += val.longitude;
-			// 			content += '<div class="panel-body" id="someId">' + '<td> Description : ' + val.description + '</td>' + '</div>';
-			// 			content += '<div class="panel-footer">';
-			// 			content += '<td> <button id="btnDel" class="btn btn-danger" onclick="delOnClick(\'/places/' + key + '\')">DELETE </button></td>';
-			// 			content += '</div>';
-			// 			content += '</div>';
-			// 			i++;
-			// 		});
-			// 		$('#test').append(content);
-			// 	}
-			// });
-			database.ref("Report").once('value', function (snapshot) {
-				if (snapshot.exists()) {
-					var content = '';
-					var i = 0;
-					snapshot.forEach(function (data) {
-						var key = Object.keys(snapshot.val())[i];
-						content += '<div class="panel panel-primary">';
-						content += '<div class="panel-body">';
-						content += '<td>' + (i + 1) + '). Topic : ' + (data.val().topic) + '</td>';
-						content += '</div>';
-						// content += '<div class="panel-body" id="someId'+i+'">'+getAddress(val.latitude,val.longitude,i).then(console.log).catch(console.error) +'</div>';
-						content += '<div class="panel-body" id="ReportID' + i + '">' + getAddress(data.val().latitude, data.val().longitude, "ReportID" + i).then(console.log).catch(console.error) + '</div>';
-						content += '<div class="panel-body">' + '<td> Description : ' + (data.val().description) + '</td>' + '</div>';
-						content += '<div class="panel-body">' + new Date(data.val().date) + '</div>';
-						content += '<div class="panel-body">';
-						if (data.val().accident == true) {
-							content += '<td> <button id="test" class="btn" onclick="location.href=\'accident.html\'">Accident </button></td>';
-						}
-						if (data.val().roadProblem == true) {
-							content += '<td> <button id="test" class="btn" onclick="location.href=\'road_problem.html\'">Road Problem </button></td>';
-						}
-						content += '</div>';
-						// content += data.val().latitude;
-						// content += data.val().longitude;
-						content += '<div class="panel-footer">';
-						content += '<td> <button id="btnDel" class="btn btn-danger" onclick="delOnClick(\'/Report/' + key + '\')">Delete</button></td>';
-						content += '<td> <button id="btnAdd" type="button" class="btn btn-primary dataPanel" onclick="addOnClick(\'' + key + '\')">Add to Process</button></td>';
-						content += '</div>';
-						content += '</div>';
-						i++;
-					});
-					$('#test').append(content);
-				}
-			});
-		</script>
+	</div> -->
+	<div class="container-fluid" style="background-color: tan; height: 10vh;">
+		<div class="row text-center">
+			<h1>Empty Space</h1>
+		</div>
+	</div>
+	<div class="container-fluid" style="margin:auto;">
+		<div class="row">
+			<div class="col-sm-6" id="test" style="height:710px; overflow: auto;border:5px solid black ">
+			</div>
+			<div class="col-sm-6" style="background-color:grey;height: 710px;">
+				<div style="background-color: dodgerblue; height: 10vh;">
+					<div>
+						<h1>topicdetail</h1>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-9">
+						<h3>username : JJlittleOG</h3>
+					</div>
+					<div class="col-sm-3">
+						<h3>24 Nov 18,5:48 AM</h3>
+					</div>
+
+				</div>
+				<div class="row">
+					<div class="col-sm-6">
+						<img style="margin: 40px;width:200px;height: 200px;" src="#">
+
+					</div>
+					<div class="col-sm-6">
+						<div style="margin: 40px; background-color:firebrick; height:200px;width:200px;">report location</div>
+					</div>
+				</div>
+				<div class="text-left">
+					<p>Descript : The passage "Lorem ipsum ..." is taken from text that reads, "Neque porro quisquam est qui dolorem
+						ipsum quia dolor sit amet, consectetur, adipisci velit ...," which translates as, "There is no one who loves pain
+						itself, who seeks after it and wants to have it, simply because it is pain..."Apr 17, 2018</p>
+				</div>
+				<div class="row">
+					<button id="test" class="btn" onclick="location.href='accident.html'">Accident </button>
+					<button id="test" class="btn" onclick="location.href='road_problem.html'">Road Problem </button>
+				</div>
+
+				<div style="position: fixed;bottom: 10vh;width: 100vh;" class="row">
+					<div class="col-sm-10">
+						<button id="btnDel" class="btn btn-danger" onclick="delOnClick(\'/Report/' + key + '\')">Delete</button>
+					</div>
+					<div class="col-sm-2">
+						<button id="btnAdd" type="button" class="btn btn-primary dataPanel" onclick="addOnClick(\'' + key + '\')">Add to
+							Process</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
+	<script>
+		var database = firebase.database();
+		// database.ref("places").once('value', function (snapshot) {
+		// 	if (snapshot.exists()) {
+		// 		var content = '';
+		// 		var i = 0;
+		// 		snapshot.forEach(function (data) {
+		// 			var val = data.val();
+		// 			var key = Object.keys(snapshot.val())[i];
+		// 			content += '<div class="panel panel-primary">';
+		// 			content += '<div class="panel-body">';
+		// 			content += '<td>' + (i + 1) + '). Topic : ' + val.topic + '</td>';
+		// 			content += '</div>';
+		// 			content += '<div class="panel-body" id="someId' + i + '">' + getAddress(val.latitude, val.longitude, "someId" + i).then(console.log).catch(console.error) + '</div>';
+		// 			// content += val.latitude;
+		// 			// content += val.longitude;
+		// 			content += '<div class="panel-body" id="someId">' + '<td> Description : ' + val.description + '</td>' + '</div>';
+		// 			content += '<div class="panel-footer">';
+		// 			content += '<td> <button id="btnDel" class="btn btn-danger" onclick="delOnClick(\'/places/' + key + '\')">DELETE </button></td>';
+		// 			content += '</div>';
+		// 			content += '</div>';
+		// 			i++;
+		// 		});
+		// 		$('#test').append(content);
+		// 	}
+		// });
+		database.ref("Report").once('value', function (snapshot) {
+			if (snapshot.exists()) {
+				var content = '';
+				var i = 0;
+				snapshot.forEach(function (data) {
+					var key = Object.keys(snapshot.val())[i];
+					// content += '<div class="panel panel-primary">';
+					// content += '<div class="panel-body">';
+
+					// content += '<div class="container">';
+					// content += '<div class="row">';
+
+					// content += '<div class="col-sm-6"">';
+					content += '<a style="text-decoration:none;">';
+
+					content += '<div class="" style="border:solid black 2px; background-color:pink; height:5vh;" >';
+					content += '<div style="color:red;">' + (i + 1) + '). Topic : ' + (data.val().topic) + '</div>';
+					content += '<div class="row">';
+					content += '<div class="col-sm-10 mt-5"> username : JJlittleOG </div>';
+					content += '<div class="col-sm-2"> 01 JAN 19,8:21 PM </div>';
+					content += '</div>'
+					content += '</div>';
+
+					content += '</a>';
+
+					// content += '<div class="col-sm-6">';
+
+					// content += '</div>'
+					// content += '<div class="col-sm-6 text-left" style="background-color:blue">';
+
+					// content += '</div>';
+
+					// content += '<div class="col-sm-6">';
+					// content += 'aaa'
+					// content += '</div>';
+
+					// content += '</div>';
+					// content += '</div>';
+
+					// content += '<td>' + (i + 1) + '). Topic : ' + (data.val().topic) + '</td>';
+
+
+
+					// content += '</div>';
+					// content += '<div class="panel-body" id="someId'+i+'">'+getAddress(val.latitude,val.longitude,i).then(console.log).catch(console.error) +'</div>';
+					// content += '<div class="panel-body" id="ReportID' + i + '">' + getAddress(data.val().latitude, data.val().longitude, "ReportID" + i).then(console.log).catch(console.error) + '</div>';
+					// content += '<div class="panel-body">' + '<td> Description : ' + (data.val().description) + '</td>' + '</div>';
+					// content += '<div class="panel-body">' + new Date(data.val().date) + '</div>';
+					// content += '<div class="panel-body">';
+					// if (data.val().accident == true) {
+					// 	content += '<td> <button id="test" class="btn" onclick="location.href=\'accident.html\'">Accident </button></td>';
+					// }
+					// if (data.val().roadProblem == true) {
+					// 	content += '<td> <button id="test" class="btn" onclick="location.href=\'road_problem.html\'">Road Problem </button></td>';
+					// }
+					// content += '</div>';
+					// content += data.val().latitude;
+					// content += data.val().longitude;
+					// content += '<div class="panel-footer">';
+					// content += '<td> <button id="btnDel" class="btn btn-danger" onclick="delOnClick(\'/Report/' + key + '\')">Delete</button></td>';
+					// content += '<td> <button id="btnAdd" type="button" class="btn btn-primary dataPanel" onclick="addOnClick(\'' + key + '\')">Add to Process</button></td>';
+					// content += '</div>';
+					// content += '</div>';
+					i++;
+				});
+				$('#test').append(content);
+
+			}
+		});
+	</script>
 </body>
 
 </html>
