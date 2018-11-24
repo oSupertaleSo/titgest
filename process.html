@@ -64,47 +64,108 @@
         <!-- <li><a href="#about">About</a></li> -->
     </ul>
     <p></p>
-    <div class="container">
+    <div class="container-fluid">
+        <div>
+            <div class="container-fluid" style="background-color: tan; height: 10vh;">
+                <div class="row text-center">
+                    <h1>Empty Space</h1>
+                </div>
+            </div>
+        </div>
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-6" style="border:5px solid black;height:75vh;overflow: auto;">
                 <div id="test"></div>
             </div>
-            <div  class="col-sm-6">
+            <div class="col-sm-6" style="background-color:grey;height: 75vh;">
+                <div style="background-color: dodgerblue; height: 10vh;">
+                    <div>
+                        <h1>topicdetail</h1>
+                    </div>
+                </div>
 
+                <div class="row">
+                    <div class="col-sm-9">
+                        <h3>username : JJlittleOG</h3>
+                    </div>
+                    <div class="col-sm-3">
+                        <h3>24 Nov 18,5:48 AM</h3>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <img style="margin: 40px;width:200px;height: 200px;" src="#">
+
+                    </div>
+                    <div class="col-sm-6">
+                        <div style="margin: 40px; background-color:firebrick; height:200px;width:200px;">report
+                            location</div>
+                    </div>
+                </div>
+                <div class="text-left">
+                    <p>Descript : The passage "Lorem ipsum ..." is taken from text that reads, "Neque porro quisquam
+                        est qui dolorem
+                        ipsum quia dolor sit amet, consectetur, adipisci velit ...," which translates as, "There is no
+                        one who loves pain
+                        itself, who seeks after it and wants to have it, simply because it is pain..."Apr 17, 2018</p>
+                </div>
+
+                <div class="panel-footer">
+
+                    <td> <button id="btnDel" class="btn btn-danger" onclick="delOnClick(\'/Process/' 
+                                key + '\')">Delete</button></td>
+
+                    <td> <button class="btn btn-success dataPanel" onclick="DoneOnClick(\'' +
+                                key + '\')">Finish</button></td>
+                </div>
             </div>
-            
+
         </div>
         <!-- <script>
-            // FirebaseInitial.insertProcess(position.coords.latitude, position.coords.longitude, this.state.topicText, this.state.descText, this.state.pickedImage)
-            // alert("Insert Success!");
-            // this.setTopic("");
-            var database = firebase.database();
-            database.ref("Report").once('value', function (snapshot) {
-                if (snapshot.exists()) {
-                    var content = '';
-                    var i = 0;
-                    snapshot.forEach(function (data) {
-                        var key = Object.keys(snapshot.val())[i];
-                        content += '<div class="panel panel-primary">';
-                        content += '<div class="panel-body">';
-                        content += '<td>' + (i + 1) + '). Topic : ' + (data.val().topic) + '</td>';
-                        content += '</div>';
-                        // content += '<div class="panel-body" id="someId'+i+'">'+getAddress(val.latitude,val.longitude,i).then(console.log).catch(console.error) +'</div>';
-                        content += '<div class="panel-body" id="ReportID' + i + '">' + getAddress(data.val().latitude, data.val().longitude, "ReportID" + i).then(console.log).catch(console.error) + '</div>';
-                        content += '<div class="panel-body">' + '<td> Description : ' + (data.val().description) + '</td>' + '</div>';
-                        content += '<div class="panel-body">' + new Date(data.val().date) + '</div>';
-                        // content += data.val().latitude;
-                        // content += data.val().longitude;
-                        content += '<div class="panel-footer">';
-                        content += '<td> <button id="btnDel" class="btn btn-danger" onclick="delOnClick(\'/Report/' + key + '\')">DELETE </button></td>';
-                        content += '</div>';
-                        content += '</div>';
-                        i++;
-                    });
-                    $('#test').append(content);
-                }
-            });
-        </script> -->
+                var database = firebase.database();
+                database.ref("Process").once('value', function (snapshot) {
+                    if (snapshot.exists()) {
+                        var content = '';
+                        var i = 0;
+                        snapshot.forEach(function (data) {
+                            var key = Object.keys(snapshot.val())[i];
+                            content += '<div class="panel panel-primary">';
+                            content += '<div class="panel-body">';
+                            content += '<td>' + (i + 1) + '). Topic : ' + (data.val().topic) + '</td>';
+                            content += '</div>';
+                            content += '<div class="panel-body" id="ReportID' + i + '">' + getAddress(data.val()
+                                .latitude, data.val().longitude, "ReportID" + i).then(console.log).catch(
+                                console.error) + '</div>';
+                            content += '<div class="panel-body">' + '<td> Description : ' + (data.val().description) +
+                                '</td>' + '</div>';
+                            content += '<div class="panel-body">' + new Date(data.val().date) + '</div>';
+                            content += '<div class="panel-body">';
+                            if (data.val().accident == true) {
+                                content +=
+                                    '<td> <button id="test" class="btn" onclick="location.href=\'accident.html\'">Accident </button></td>';
+                            }
+                            if (data.val().roadProblem == true) {
+                                content +=
+                                    '<td> <button id="test" class="btn" onclick="location.href=\'road_problem.html\'">Road Problem </button></td>';
+                            }
+                            content += '</div>';
+
+                            content += '<div class="panel-footer">';
+                            content +=
+                                '<td> <button id="btnDel" class="btn btn-danger" onclick="delOnClick(\'/Process/' +
+                                key + '\')">Delete</button></td>';
+                            content +=
+                                '<td> <button class ="btn btn-success dataPanel" onclick="DoneOnClick(\'' +
+                                key + '\')">Finish</button></td>';
+                            content += '</div>';
+                            content += '</div>';
+                            i++;
+                        });
+                        $('#test2').append(content);
+                    }
+                });
+            </script> -->
+
         <script>
             var database = firebase.database();
             database.ref("Process").once('value', function (snapshot) {
@@ -115,25 +176,11 @@
                         var key = Object.keys(snapshot.val())[i];
                         content += '<div class="panel panel-primary">';
                         content += '<div class="panel-body">';
-                        content += '<td>' + (i + 1) + '). Topic : ' + (data.val().topic) + '</td>';
+                        content += '<div>' + (i + 1) + '). Topic : ' + (data.val().topic) + '</div>';
+                        content += '<div class="row">';
+                        content += '<div class="col-sm-6"> Username : JJlittleOG</div>';
+                        content += '<div class="col">' + new Date(data.val().date) + '</div>';
                         content += '</div>';
-                        // content += '<div class="panel-body" id="someId'+i+'">'+getAddress(val.latitude,val.longitude,i).then(console.log).catch(console.error) +'</div>';
-                        content += '<div class="panel-body" id="ReportID' + i + '">' + getAddress(data.val().latitude, data.val().longitude, "ReportID" + i).then(console.log).catch(console.error) + '</div>';
-                        content += '<div class="panel-body">' + '<td> Description : ' + (data.val().description) + '</td>' + '</div>';
-                        content += '<div class="panel-body">' + new Date(data.val().date) + '</div>';
-                        content += '<div class="panel-body">';
-                        if (data.val().accident == true) {
-                            content += '<td> <button id="test" class="btn" onclick="location.href=\'accident.html\'">Accident </button></td>';
-                        }
-                        if (data.val().roadProblem == true) {
-                            content += '<td> <button id="test" class="btn" onclick="location.href=\'road_problem.html\'">Road Problem </button></td>';
-                        }
-                        content += '</div>';
-                        // content += data.val().latitude;
-                        // content += data.val().longitude;
-                        content += '<div class="panel-footer">';
-                        content += '<td> <button id="btnDel" class="btn btn-danger" onclick="delOnClick(\'/Process/' + key + '\')">Delete</button></td>';
-                        content += '<td> <button class ="btn btn-success dataPanel" onclick="DoneOnClick(\'' + key + '\')">Finish</button></td>';
                         content += '</div>';
                         content += '</div>';
                         i++;
@@ -142,6 +189,7 @@
                 }
             });
         </script>
+    </div>
 </body>
 
 </html>
