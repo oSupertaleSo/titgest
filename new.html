@@ -19,13 +19,13 @@
             min-width: 170px;
         }
         tr > td:last-child {
-            min-width: 180px;
+            min-width: 160px;
         }
     </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="#">RoadBuddy</a>
+    <a class="navbar-brand" href="new.html">RoadBuddy</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -39,16 +39,12 @@
         <hr>
         <ul class="nav nav-tabs nav-justified nav-pills" id="myTab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="process-tab" data-toggle="tab" href="#process" role="tab"
-                   aria-controls="process" aria-selected="true">Process Menu</a>
+                <a class="nav-link active" id="report-tab" data-toggle="tab" href="#report" role="tab"
+                   aria-controls="report" aria-selected="true">Report Problem Menu</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="accident-tab" data-toggle="tab" href="#accident" role="tab"
-                   aria-controls="accident" aria-selected="false">Accident Menu</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="road-problem-tab" data-toggle="tab" href="#road-problem" role="tab"
-                   aria-controls="road-problem" aria-selected="false">Road Problem Menu</a>
+                <a class="nav-link" id="process-tab" data-toggle="tab" href="#process" role="tab"
+                   aria-controls="process" aria-selected="false">In Progress Menu</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="finish-tab" data-toggle="tab" href="#finish" role="tab" aria-controls="finish"
@@ -58,16 +54,16 @@
 
         <!-- Tab panes -->
         <div class="tab-content">
-            <div class="tab-pane active" id="process" role="tabpanel" aria-labelledby="process-tab">
+            <div class="tab-pane active" id="report" role="tabpanel" aria-labelledby="report-tab">
+                <div class="text-center mt-3" id="report-spinner"><div class="spinner-border text-primary"></div></div>
+                <table class="table table-bordered table-hovered" id="report-table"></table>
+            </div>
+            <div class="tab-pane" id="process" role="tabpanel" aria-labelledby="process-tab">
+                <div class="text-center mt-3" id="process-spinner"><div class="spinner-border text-primary"></div></div>
                 <table class="table table-bordered table-hovered" id="process-table"></table>
             </div>
-            <div class="tab-pane" id="accident" role="tabpanel" aria-labelledby="accident-tab">
-                <table class="table table-bordered table-hovered" id="accident-table"></table>
-            </div>
-            <div class="tab-pane" id="road-problem" role="tabpanel" aria-labelledby="road-problem-tab">
-                <table class="table table-bordered table-hovered" id="problem-table"></table>
-            </div>
             <div class="tab-pane" id="finish" role="tabpanel" aria-labelledby="finish-tab">
+                <div class="text-center mt-3" id="finish-spinner"><div class="spinner-border text-primary"></div></div>
                 <table class="table table-bordered table-hovered" id="finish-table"></table>
             </div>
         </div>
@@ -75,198 +71,38 @@
 
 </main>
 
+<div class="modal fade" tabindex="-1" role="dialog" id="infoModal">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Problem Info</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <img src="" class="img-fluid">
+                </div>
+                <p class="description mt-3"></p>
+                <small class="text-muted">
+                    <i class="fa fa-clock"></i> <span class="date"></span>
+                    <i class="fa fa-user ml-2"></i> <span class="user"></span>
+                    <strong class="ml-2">สถานะ: </strong> <span class="status rounded p-1 text-white"></span>
+                </small> 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- /.container -->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-<script src="https://www.gstatic.com/firebasejs/4.7.0/firebase.js"></script>
-<script src="js/all.min.js"></script>
-
-<script>
-    function addZero(value) {
-        return (value < 10 ? '0' : '') + value;
-    }
-
-    function getAddress(latitude, longitude, id) {
-        var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&sensor=true&key=AIzaSyB_1gqNDYMyc10X_3lp5qh2iTM3DlAm4gE';
-        $.ajax({
-            url: url,
-            method: 'GET',
-            async: true,
-            success: function(response) {
-                var address = response.results[0];
-                console.log(address.formatted_address);
-                $(id).html(address.formatted_address)
-            }
-        });
-    }
-
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //IMPORTANT: REPLACE THESE WITH YOUR VALUES (these ones won't work)
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    var config = {
-        apiKey: "AIzaSyAQqXC7P_OwwkkSfJscHLUIfro84Ipc0SI",
-        authDomain: "test-2e10e.firebaseapp.com",
-        databaseURL: "https://test-2e10e.firebaseio.com",
-        projectId: "test-2e10e",
-        storageBucket: "test-2e10e.appspot.com",
-        messagingSenderId: "872972741228"
-    };
-
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-    //initialize your firebase
-    firebase.initializeApp(config);
-
-    var database = firebase.database();
-    var accidentContent = '';
-
-    database.ref("Process").once('value', function (snapshot) {
-        if (snapshot.exists()) {
-            var content = '';
-            var i = 1;
-            snapshot.forEach(function (data) {
-                var value = data.val();
-                var date = new Date(data.val().date);
-                date = addZero(date.getDate()) + '/' +
-                    addZero(date.getMonth()) + '/' +
-                    date.getFullYear() + '<br>' +
-                    addZero(date.getHours()) + ':' +
-                    addZero(date.getMinutes()) + ':' +
-                    addZero(date.getSeconds())
-                var address = getAddress(value.latitude, value.longitude, '#process-address-' + i);
-
-                var html  = '<tr>' +
-                    '    <td>' + i + '</td>' +
-                    '    <td>' +
-                    '       <b>Topic:</b> ' + value.topic + '<br>' +
-                    '       <b><i class="fa fa-user"></i> :</b> Member_User' +
-                    '    </td>' +
-                    '    <td id="process-address-' + i + '">' + address + '</td>' +
-                    '    <td class="text-right">' + date + '</td>' +
-                    '    <td>' +
-                    '        <button class="btn btn-primary" data-toggle="tooltip" title="View Info">' +
-                    '            <i class="fa fa-search"></i>' +
-                    '        </button>' +
-                    '        <button class="btn btn-danger" data-toggle="tooltip" title="Delete">' +
-                    '            <i class="fa fa-trash"></i>' +
-                    '        </button>' +
-                    '        <button class="btn btn-success" data-toggle="tooltip" title="Finish">' +
-                    '            <i class="fa fa-check"></i>' +
-                    '        </button>' +
-                    '    </td>' +
-                    '</tr>';
-                if(value.accident == true) {
-                    accidentContent += html;
-                }
-                content += html;
-                i++;
-            });
-            $('#process-table').html(content);
-            $('#process-table [data-toggle="tooltip"]').tooltip()
-        }
-    });
-
-    database.ref("Report").once('value', function (snapshot) {
-        if (snapshot.exists()) {
-            var content = '';
-            var i = 1;
-            snapshot.forEach(function (data) {
-                var value = data.val();
-                var date = new Date(data.val().date);
-                date = addZero(date.getDate()) + '/' +
-                    addZero(date.getMonth()) + '/' +
-                    date.getFullYear() + '<br>' +
-                    addZero(date.getHours()) + ':' +
-                    addZero(date.getMinutes()) + ':' +
-                    addZero(date.getSeconds())
-
-                var html  = '<tr>' +
-                    '    <td>' + (i++) + '</td>' +
-                    '    <td>' +
-                    '    <b>Topic:</b> ' + value.topic + '<br>' +
-                    '    <b>Username:</b> Member_User' +
-                    '    </td>' +
-                    '    <td class="text-right">' + date + '</td>' +
-                    '    <td>' +
-                    '        <button class="btn btn-primary" data-toggle="tooltip" title="View Info">' +
-                    '            <i class="fa fa-search"></i>' +
-                    '        </button>' +
-                    '        <button class="btn btn-danger" data-toggle="tooltip" title="Delete">' +
-                    '            <i class="fa fa-trash"></i>' +
-                    '        </button>' +
-                    '        <button class="btn btn-success" data-toggle="tooltip" title="Finish">' +
-                    '            <i class="fa fa-check"></i>' +
-                    '        </button>' +
-                    '    </td>' +
-                    '</tr>';
-                if(value.accident == true) {
-                    accidentContent += html;
-                }
-                if(value.roadProblem == true) {
-                    content += html;
-                }
-            });
-            $('#problem-table').html(content);
-            $('#problem-table [data-toggle="tooltip"]').tooltip()
-        }
-    });
-
-    database.ref("Finish").once('value', function (snapshot) {
-        if (snapshot.exists()) {
-            var content = '';
-            var i = 1;
-            snapshot.forEach(function (data) {
-                var value = data.val();
-                var date = new Date(data.val().date);
-                date = addZero(date.getDate()) + '/' +
-                    addZero(date.getMonth()) + '/' +
-                    date.getFullYear() + '<br>' +
-                    addZero(date.getHours()) + ':' +
-                    addZero(date.getMinutes()) + ':' +
-                    addZero(date.getSeconds())
-
-                var html  = '<tr>' +
-                    '    <td>' + (i++) + '</td>' +
-                    '    <td>' +
-                    '    <b>Topic:</b> ' + value.topic + '<br>' +
-                    '    <b>Username:</b> Member_User' +
-                    '    </td>' +
-                    '    <td class="text-right">' + date + '</td>' +
-                    '    <td>' +
-                    '        <button class="btn btn-primary" data-toggle="tooltip" title="View Info">' +
-                    '            <i class="fa fa-search"></i>' +
-                    '        </button>' +
-                    '        <button class="btn btn-danger" data-toggle="tooltip" title="Delete">' +
-                    '            <i class="fa fa-trash"></i>' +
-                    '        </button>' +
-                    '        <button class="btn btn-success" data-toggle="tooltip" title="Finish">' +
-                    '            <i class="fa fa-check"></i>' +
-                    '        </button>' +
-                    '    </td>' +
-                    '</tr>';
-                if(value.accident == true) {
-                    accidentContent += html;
-                }
-                content += html;
-            });
-            $('#finish-table').html(content);
-            $('#finish-table [data-toggle="tooltip"]').tooltip()
-        }
-    });
-
-    $(document).ready(function () {
-        $('#menuTab a').on('click', function (e) {
-            e.preventDefault();
-            $(this).tab('show')
-        })
-    })
-</script>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/firebase.js"></script>
+<script src="js/_app.js"></script>
 </body>
 </html>
