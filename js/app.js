@@ -104,9 +104,9 @@ function renderProcessMenu() {
             var i = 0;
             problemList.process = [];
             snapshot.forEach(function (data) {
+                var key = Object.keys(snapshot.val())[i];
                 var value = data.val();
                 var date = new Date(data.val().date);
-                var key = Object.keys(snapshot.val())[i];
                 var date = getFullDateTime(value.date);
                 var address = getAddress(value.latitude, value.longitude, '#process-address-' + i);
                 var tags = getTags(value);
@@ -138,7 +138,7 @@ function renderProcessMenu() {
                 var problem = value;
                 problem.date = date;
                 problem.address = address;
-                problemList.report.push(problem)
+                problemList.process.push(problem)
             });
             $('#process-spinner').hide();
             $('#process-table').html(content);
@@ -183,7 +183,7 @@ function renderFinishMenu() {
                 var problem = value;
                 problem.date = date;
                 problem.address = address;
-                problemList.report.push(problem)
+                problemList.finish.push(problem)
             });
             $('#finish-spinner').hide();
             $('#finish-table').html(content);
